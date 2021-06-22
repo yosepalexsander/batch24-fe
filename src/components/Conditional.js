@@ -24,7 +24,7 @@ function Conditional() {
     })
   }
 
-  // function for handling state based on change event
+  // function for handling state based on submit event
   const handleSubmit  = (e) => {
     setUser({
       ...user,
