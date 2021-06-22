@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import Header from './components/Header';
+import Content from './components/Content';
 
-function App() {
+import './App.css'
+import Conditional from "./components/Conditional";
+import List from "./components/List";
+// class App extends Component {
+//   constructor(props) {
+//     super(props)
+  
+//     this.headerTitle = "Dumbways Batch 24";
+//     this.contentTitle = "Welcome to Dumbways folks!";
+//   }
+  
+//   render() {
+//     return (
+//       <div className="App">
+//         <Header title={this.headerTitle}/>
+//         <Content title={this.contentTitle}/>
+//       </div>
+//     )
+//   }
+// }
+
+
+const App = () => {
+  const headerTitle = "Dumbways Batch 24";
+  const contentTitle = "Welcome to Dumbways folks!";
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header title={headerTitle}/>
+      {/* <Content title={contentTitle}/> */}
+      <Conditional />
+      <List />
     </div>
-  );
+  )
 }
 
 export default App;
