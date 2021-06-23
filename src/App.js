@@ -1,40 +1,34 @@
-import { Component } from "react";
-import Header from './components/Header';
-import Content from './components/Content';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import './App.css'
-import Conditional from "./components/Conditional";
-import List from "./components/List";
-// class App extends Component {
-//   constructor(props) {
-//     super(props)
-  
-//     this.headerTitle = "Dumbways Batch 24";
-//     this.contentTitle = "Welcome to Dumbways folks!";
-//   }
-  
-//   render() {
-//     return (
-//       <div className="App">
-//         <Header title={this.headerTitle}/>
-//         <Content title={this.contentTitle}/>
-//       </div>
-//     )
-//   }
-// }
+import { Container } from "react-bootstrap";
 
+import PrivateRoute from "./components/route/PrivateRoute";
+import Home from "./pages/Home";
+import Header from "./components/Header";
+import About from "./pages/About";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import DetailProduct from "./pages/DetailProduct";
 
 const App = () => {
   const headerTitle = "Dumbways Batch 24";
-  const contentTitle = "Welcome to Dumbways folks!";
   return (
     <div className="App">
-      <Header title={headerTitle}/>
+      <Router>
+        <Header title={headerTitle} />
+        <Container fluid="lg">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <PrivateRoute exact path="/product/:id" component={DetailProduct} />
+            <Route exact path="/signin" component={Signin} />
+            <Route exact path="/signup" component={Signup} />
+          </Switch>
+        </Container>
+      </Router>
       {/* <Content title={contentTitle}/> */}
-      <Conditional />
-      <List />
     </div>
-  )
-}
+  );
+};
 
 export default App;
