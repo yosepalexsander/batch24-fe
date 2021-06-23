@@ -10,6 +10,12 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import DetailProduct from "./pages/DetailProduct";
 
+/**
+ * Our main app
+ * For routing, make sure to use BrowserRouter, Switch, and Route
+ * Route important attribute: path and component
+ * @returns
+ */
 const App = () => {
   const headerTitle = "Dumbways Batch 24";
   return (
@@ -26,7 +32,6 @@ const App = () => {
           </Switch>
         </Container>
       </Router>
-      {/* <Content title={contentTitle}/> */}
     </div>
   );
 };

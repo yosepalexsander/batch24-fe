@@ -8,18 +8,22 @@ import {
   Navbar,
   Nav,
 } from "react-bootstrap";
+
+import ModalSignin from "./ModalSignin";
 import brand from "../assets/images/brand.svg";
 
 import data from "../data/fakeData";
 
 import "../styles/customStyle.css";
 const Header = () => {
+  //state for handle search field
   const [search, setSearch] = useState("");
-  const router = useHistory();
-  const handlePushToSignIn = () => {
-    router.push("/signin");
-  };
 
+  // state for handle show modal
+  const [show, setshow] = useState(false);
+
+  // make routing programmatically by using useHistory()
+  const router = useHistory();
   const handlePushToSignUp = () => {
     router.push("/signup");
   };
@@ -28,7 +32,8 @@ const Header = () => {
     setSearch(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const product = data.near.find((item) => item.restaurant === search);
 
     if (product) {
@@ -72,10 +77,11 @@ const Header = () => {
         <Button className="mr-3 my-2" onClick={handlePushToSignUp}>
           Sign up
         </Button>
-        <Button className="my-2" onClick={handlePushToSignIn}>
+        <Button className="my-2" onClick={() => setshow(true)}>
           Sign in
         </Button>
       </Navbar.Collapse>
+      <ModalSignin show={show} handleClose={() => setshow(false)} />
     </Navbar>
   );
 };
