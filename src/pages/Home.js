@@ -2,8 +2,7 @@ import { Row, Col } from "react-bootstrap";
 
 import Sidebar from "../components/Sidebar";
 import CardList from "../components/CardList";
-import hello from "../assets/images/hello.svg";
-
+import data from "../data/fakeData";
 const Home = () => {
   return (
     <div>
@@ -12,7 +11,7 @@ const Home = () => {
           <Sidebar />
         </Col>
         <Col>
-          <CardList />
+          <CardList data={data}/>
         </Col>
       </Row>
     </div>

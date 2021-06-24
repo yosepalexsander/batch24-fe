@@ -8,7 +8,7 @@ import { Redirect, Route } from "react-router-dom";
  * if not: redirect to home path
  */
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const login = false;
+  const login = true;
 
   return (
     <>

@@ -1,14 +1,12 @@
-import data from "../data/fakeData";
 import { Col, Row } from "react-bootstrap";
 import CardItem from "./CardItem";
 
-const CardList = () => {
-  const { near } = data;
+const CardList = ({data, product, handleAddProduct}) => {
   return (
     <Row>
-      {near.map((item, index) => (
+      {data.map((item, index) => (
         <Col key={index}>
-          <CardItem item={item} />
+          <CardItem item={item} isProduct={product} handleClick={handleAddProduct}/>
         </Col>
       ))}
     </Row>

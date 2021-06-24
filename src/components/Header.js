@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import {
+  Badge,
   Button,
   FormControl,
   InputGroup,
@@ -9,6 +10,9 @@ import {
   Nav,
 } from "react-bootstrap";
 
+import { UserContext } from "../contexts/userContext";
+import { CartContext } from "../contexts/cartContext";
+
 import ModalSignin from "./ModalSignin";
 import brand from "../assets/images/brand.svg";
 
@@ -16,13 +20,22 @@ import data from "../data/fakeData";
 
 import "../styles/customStyle.css";
 const Header = () => {
-  //state for handle search field
+  const {state, dispatch} = useContext(UserContext);
+  const {state: cartState} = useContext(CartContext);
+  console.log("user context state", state)
+  console.log("cart context state", cartState)
   const [search, setSearch] = useState("");
-
-  // state for handle show modal
   const [show, setshow] = useState(false);
 
-  // make routing programmatically by using useHistory()
+  useEffect(() => {
+    if (!state.isLogin) {
+      setshow(true);
+    }
+    return () => {
+      setshow(false)
+    }
+  }, [state])
+
   const router = useHistory();
   const handlePushToSignUp = () => {
     router.push("/signup");
@@ -39,6 +52,10 @@ const Header = () => {
     if (product) {
       return router.push(`/product/${product.id}`);
     }
+  };
+
+  const handleLogout = (e) => {
+    dispatch({ type: "LOGOUT" })
   };
 
   return (
@@ -74,14 +91,30 @@ const Header = () => {
             </InputGroup.Append>
           </InputGroup>
         </Form>
-        <Button className="mr-3 my-2" onClick={handlePushToSignUp}>
-          Sign up
-        </Button>
-        <Button className="my-2" onClick={() => setshow(true)}>
-          Sign in
-        </Button>
+        {state.isLogin && (
+          <>
+            <p className="nav-link mr-3 my-2">Welcome, 
+            <span><Link to="/profile ">{state.user.name}</Link></span></p>
+            <Link to="/cart" className="nav-link mr-3 my-2">Cart {' '}
+            <Badge className="bg-secondary text-white">{cartState.carts.length}</Badge>
+            </Link>
+            <Button variant="danger" className="my-2" onClick={handleLogout}>
+              Logout
+            </Button>
+          </>
+        )}
+        {!state.isLogin && (
+          <>
+            <Button className="mr-3 my-2" onClick={handlePushToSignUp}>
+              Sign up
+            </Button>
+            <Button className="my-2" onClick={() => setshow(true)}>
+              Sign in
+            </Button>
+          </>
+        )}
       </Navbar.Collapse>
-      <ModalSignin show={show} handleClose={() => setshow(false)} />
+      <ModalSignin show={show} handleClose={() => setshow(false)} handleLogin={dispatch}/>
     </Navbar>
   );
 };
